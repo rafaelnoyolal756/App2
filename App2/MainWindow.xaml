@@ -1,15 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Window
-    x:Class="App2.MainWindow"
+    x:Class="AppUI1.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:App2"
+    xmlns:local="using:AppUI1"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Title="App2">
+    Title="AppUI1">
 
-    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Button x:Name="myButton" Click="myButton_Click">Click Me</Button>
-    </StackPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+    
+    
+        <StackPanel Grid.Row="0" Padding="20" Orientation="Horizontal" HorizontalAlignment="Center" Spacing="20" Margin="10">
+                <TextBox  x:Name="ToTextBox" Text="{Binding SentTo}" Header="To" PlaceholderText="Phone number"/>
+                <TextBox  x:Name="MessageTextBox" Text="{Binding Message}" Header="Message" PlaceholderText="Type your message"/>
+                <Button  x:Name="SendButton" Content="Send" Click="SendButton_Click" CornerRadius="100" Background="#65C065"/>
+        </StackPanel>
+
+        <ListView Grid.Row="1" Margin="5,10" 
+                  x:Name="MessagesListView" 
+                  Header="Previous Messages" 
+                  BorderBrush="LightGray"
+                  BorderThickness="1"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center"
+                  ItemsSource="{Binding Messages}">
+            <ListView.HeaderTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="To" Width="100"/>
+                        <TextBlock Text="Message" Width="200"/>
+                        <TextBlock Text="Date/Time" Width="150"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.HeaderTemplate>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding SentTo}" Width="100" TextWrapping="Wrap"/>
+                            <TextBlock Text="{Binding MessageText}" Width="200" TextWrapping="Wrap"/>
+                            <TextBlock Text="{Binding Created}" Width="150" TextWrapping="Wrap"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+    
+    </Grid>    
+        
 </Window>
